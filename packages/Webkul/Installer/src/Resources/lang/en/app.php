@@ -129,9 +129,9 @@ return [
 
         'core'      => [
             'channels'   => [
-                'meta-title'       => 'Demo store',
-                'meta-keywords'    => 'Demo store meta keyword',
-                'meta-description' => 'Demo store meta description',
+                'meta-title'       => 'Soshta',
+                'meta-keywords'    => 'Soshta meta keyword',
+                'meta-description' => 'Soshta meta description',
                 'name'             => 'Default',
             ],
 

@@ -3987,4 +3987,10 @@ return [
             'tax'               => 'Tax',
         ],
     ],
+    'merchant-id'   => 'Merchant Id',
+    'merchant-key'  => 'Merchant Key',
+    'websitestatus' => 'Website',
+    'industrytype'  => 'Industry Type',
+    'paytmstatus'   => 'Status',
+    'callback-url'  => 'Call Back URL'
 ];
