@@ -35,26 +35,28 @@ RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm
 RUN npm install -g npx
 RUN npm install -g laravel-echo-server
 
-# arguments
-ARG container_project_path
-ARG uid
-ARG user
-
 # setting work directory
-WORKDIR $container_project_path
+WORKDIR /var/www/html/
 
 # adding user
-RUN useradd -G www-data,root -u $uid -d /home/$user $user
-RUN mkdir -p /home/$user/.composer && \
-    chown -R $user:$user /home/$user
+RUN useradd -G www-data,root -u 1000 -d /home/bagisto bagisto
+RUN mkdir -p /home/bagisto/.composer && \
+    chown -R bagisto:bagisto /home/bagisto
 
 # setting apache
 COPY ./.configs/apache.conf /etc/apache2/sites-available/000-default.conf
 RUN a2enmod rewrite
 
 # setting up project from `src` folder
-RUN chmod -R 775 $container_project_path
-RUN chown -R $user:www-data $container_project_path
+RUN chmod -R 775 /var/www/html/
+RUN chown -R bagisto:www-data /var/www/html/
 
 # changing user
 USER $user
+
+RUN mkdir -p /home/bagisto/bagisto
+COPY . /home/bagisto/bagisto
+RUN cd /home/bagisto/bagisto && composer install
+
+COPY entrypoint.sh /bin/entrypoint.sh
+CMD ["/bin/entrypoint.sh"]
